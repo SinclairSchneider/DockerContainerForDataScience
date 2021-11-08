@@ -101,3 +101,16 @@ Finally a login to the Jupyterhub server is possible either by directly accessin
 or by tunneling the port through ssh to 127.0.0.1 of the local machine.
 ![](https://raw.githubusercontent.com/SinclairSchneider/DockerContainerForDataScience/main/jupyterhub_gpu/img/Login_Jupyterhub.jpg)
 ![](https://raw.githubusercontent.com/SinclairSchneider/DockerContainerForDataScience/main/jupyterhub_gpu/img/Putty_port_forwarding.jpg)
+
+## To build the container
+
+To build and edit the main docker container please first change to the directory "DockerContainerForDataScience/jupyterhub_gpu/jupyterhub_gpu"
+```commandline
+cd DockerContainerForDataScience/jupyterhub_gpu/jupyterhub_gpu
+```
+The Dockerfile can then be edited before the image is build. 
+The building process has a tag parameter which is usually in the form [accountname]/[imagename]
+if the image should be uploaded to docker. The command might look like this:
+```commandline
+docker image build -t sinclair1992/jupyterhub_gpu .
+```
