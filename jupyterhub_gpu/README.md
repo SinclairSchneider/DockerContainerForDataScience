@@ -114,3 +114,11 @@ if the image should be uploaded to docker. The command might look like this:
 ```commandline
 docker image build -t sinclair1992/jupyterhub_gpu .
 ```
+After the image has deen build it can finally be pushed after logging in to docker.
+The name of the account as well as the name of the image are handed over to the push command.
+```commandline
+docker login
+sudo docker push sinclair1992/jupyterhub_gpu
+```
+The image has now been build and can be used. When doing so the names of the account and image in the Dockerfile inside the jupyterhub_gpu_local folder
+have to be adjusted accordingly.
