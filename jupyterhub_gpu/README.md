@@ -41,7 +41,7 @@ cd DockerContainerForDataScience/jupyterhub_gpu/jupyterhub_gpu_local/
 ```
 At the first run the image needs to be initialized. Do this with the following command.
 ```commandline
-docker image build .
+docker image build -t sinclair1992/jupyterhub_gpu_local .
 ```
 The response then might look as follows
 ```commandline
