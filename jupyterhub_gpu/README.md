@@ -79,3 +79,21 @@ This password should be remembered.
 ```commandline
 username: admin password: xxxXXxxx
 ```
+To run the new created container, the following command needs to be run
+```commandline
+docker run -p 8000:8000 --gpus '"device=0,1"' -d -v /path/to/local/home:/home sinclair1992/jupyterhub_gpu_local
+```
+This maps port 8000 inside the docker container to port 8000 of the host machine. 
+The GPUs with the ids 0 and 1 get attached to the container. 
+In case more GPUs are available and needed the numbers can be adjusted accordingly.
+The parameter -d means that the container runs in detached mode and -v maps the volume /home
+inside the docker container to a local directory.
+To check if to container is running the following command might be used:
+```commandline
+docker container ls
+```
+The following command can then stop the container again:
+```commandline
+docker container stop [container id]
+```
+It might be worth to mention that only the first digits of the container id need to be written that are needed to differentiate the container.
