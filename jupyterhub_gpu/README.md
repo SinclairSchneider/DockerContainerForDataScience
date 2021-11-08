@@ -99,5 +99,5 @@ docker container stop [container id]
 It might be worth to mention that only the first digits of the container id need to be written that are needed to differentiate the container.
 Finally a login to the Jupyterhub server is possible either by directly accessing the server on port 8000
 or by tunneling the port through ssh to 127.0.0.1 of the local machine.
-![](img\Login_Jupyterhub.jpg)
-![](img\Putty_port_forwarding.jpg)
+![](https://raw.githubusercontent.com/SinclairSchneider/DockerContainerForDataScience/main/jupyterhub_gpu/img/Login_Jupyterhub.jpg)
+![](https://raw.githubusercontent.com/SinclairSchneider/DockerContainerForDataScience/main/jupyterhub_gpu/img/Putty_port_forwarding.jpg)
