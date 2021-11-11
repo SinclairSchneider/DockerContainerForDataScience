@@ -1,0 +1,3 @@
+FROM sinclair1992/data_science_toolkit
+RUN useradd -mg users -G sudo -s /bin/bash admin && pw=$(< /dev/urandom tr -dc _A-Z-a-z-0-9 | head -c8) && echo "admin:"$pw | chpasswd && sed -i 's/<password><\/password>/<password>'$pw'<\/password>/g' /etc/clickhouse-server/users.xml && superset fab reset-password --username admin --password $pw && echo "Jupyterhub:" && echo "username: admin" && echo "password: "$pw && echo "Apache Superset:" && echo "username: admin" && echo "password: "$pw && echo "Clickhouse:" && echo "username: default" && echo "password: "$pw
+CMD clickhouse start && superset run -p 8088 --host=0.0.0.0 --with-threads --reload & jupyterhub -f jupyterhub_config.py & tail -f /dev/null
