@@ -159,19 +159,19 @@ or by tunneling the port through ssh to 127.0.0.1 of the local machine.
 
 To build and edit the main docker container please first change to the directory "DockerContainerForDataScience/jupyterhub_gpu/jupyterhub_gpu"
 ```commandline
-cd DockerContainerForDataScience/jupyterhub_gpu/jupyterhub_gpu
+cd DockerContainerForDataScience/data_science_toolkit/data_science_toolkit
 ```
 The Dockerfile can then be edited before the image is build. 
 The building process has a tag parameter which is usually in the form [accountname]/[imagename]
 if the image should be uploaded to docker. The command might look like this:
 ```commandline
-docker image build -t sinclair1992/jupyterhub_gpu .
+docker image build -t sinclair1992/data_science_toolkit .
 ```
 After the image has deen build it can finally be pushed after logging in to docker.
 The name of the account as well as the name of the image are handed over to the push command.
 ```commandline
 docker login
-sudo docker push sinclair1992/jupyterhub_gpu
+sudo docker push sinclair1992/data_science_toolkit
 ```
-The image has now been build and can be used. When doing so the names of the account and image in the Dockerfile inside the jupyterhub_gpu_local folder
+The image has now been build and can be used. When doing so the names of the account and image in the Dockerfile inside the data_science_toolkit_local folder
 have to be adjusted accordingly.
