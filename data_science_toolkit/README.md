@@ -13,7 +13,7 @@ Jupyterhub-Server, Apache Superset and Clickhouse along with some extras.
 The Dockerfile inside the folder "data_science_toolkit_local" only contains the finalization steps such as setting a password or creating folders.
 
 The image comes with the following properties (the bold ones are new compared to [jupyterhub_gpu](https://github.com/SinclairSchneider/DockerContainerForDataScience/tree/main/jupyterhub_gpu)):
-- Inheritance from image nvidia/cuda:11.4.1-cudnn8-devel-ubuntu20.04
+- Inheritance from image sinclair1992/jupyterhub_gpu
 - curl
 - python3-pip
 - jupyterhub (python 3)
