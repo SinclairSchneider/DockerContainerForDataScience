@@ -52,6 +52,93 @@ The image comes with the following properties (the bold ones are new compared to
 - **Flask-WTF==0.14.3 (python 3)**
 
 ## To just run the container
+To just run the container, clone this git repository and got to the directory
+"data_science_toolkit/data_science_toolkit_local/" by the following command:
+```commandline
+git clone https://github.com/SinclairSchneider/DockerContainerForDataScience
+cd DockerContainerForDataScience/data_science_toolkit/data_science_toolkit_local/
+```
+At the first run the image needs to be initialized. Do this with the following command.
+```commandline
+docker image build -t sinclair1992/data_science_toolkit_local .
+```
+The response then might look as follows
+```commandline
+Sending build context to Docker daemon   2.56kB
+Step 1/3 : FROM sinclair1992/data_science_toolkit
+latest: Pulling from sinclair1992/data_science_toolkit
+xxxxxxxxxxxx: Already exists
+xxxxxxxxxxxx: Already exists
+xxxxxxxxxxxx: Already exists
+xxxxxxxxxxxx: Already exists
+xxxxxxxxxxxx: Already exists
+xxxxxxxxxxxx: Already exists
+xxxxxxxxxxxx: Already exists
+xxxxxxxxxxxx: Already exists
+xxxxxxxxxxxx: Already exists
+xxxxxxxxxxxx: Already exists
+xxxxxxxxxxxx: Already exists
+xxxxxxxxxxxx: Pull complete
+xxxxxxxxxxxx: Pull complete
+Digest: sha256:eb0c458d2a98f88fc151fde761d31a85de88023011412ecf06d6b94e344a3b7c
+Status: Downloaded newer image for sinclair1992/data_science_toolkit:latest
+ ---> xxxxxxxxxxxx
+Step 2/3 : RUN useradd -mg users -G sudo -s /bin/bash admin && pw=$(< /dev/urandom tr -dc _A-Z-a-z-0-9 | head -c8) && echo "admin:"$pw | chpasswd && sed -i 's/<password><\/password<password>'$pw'<\/password>/g' /etc/clickhouse-server/users.xml && superset fab reset-password --username admin --password $pw && echo "Jupyterhub:" && echo "username: admin" && ec "password: "$pw && echo "Apache Superset:" && echo "username: admin" && echo "password: "$pw && echo "Clickhouse:" && echo "username: default" && echo "password: "$pw
+ ---> Running in xxxxxxxxxxxx
+logging was configured successfully
+2021-11-15 23:56:09,582:INFO:superset.utils.logging_configurator:logging was configured successfully
+2021-11-15 23:56:09,588:INFO:root:Configured event logger of type <class 'superset.utils.log.DBEventLogger'>
+User admin reseted.
+/usr/local/lib/python3.8/dist-packages/flask_caching/__init__.py:201: UserWarning: Flask-Caching: CACHE_TYPE is set to null, caching is effectively disabled.
+  warnings.warn(
+Jupyterhub:
+username: admin
+password: xxxxxxxx
+Apache Superset:
+username: admin
+password: xxxxxxxx
+Clickhouse:
+username: default
+password: xxxxxxxx
+Removing intermediate container xxxxxxxxxxx
+ ---> f7ab3862a9fa
+Step 3/3 : CMD mkdir -p /home/data/clickhouse/log/clickhouse-server && mkdir -p /home/data/clickhouse/tmp && mkdir -p /home/data/clickhouse/user_files && mkdir -p /home/data/clickhse/access && mkdir -p /home/data/clickhouse/format_schemas && chown -R clickhouse:clickhouse /home/data/clickhouse && clickhouse start && superset run -p 8088 --host=0.0.0.0 --withhreads --reload & jupyterhub -f jupyterhub_config.py & tail -f /dev/null
+ ---> Running in xxxxxxxxxxx
+Removing intermediate container xxxxxxxxxxx
+ ---> xxxxxxxxxxx
+Successfully built xxxxxxxxxxx
+Successfully tagged sinclair1992/data_science_toolkit_local:latest
+```
+The important lines from the output are the ones where the passwords for the user accounts for
+Jupyterhub, Apache Superset and Clickhouse are set.
+All these passwords are the same and randomly generated. 
+They should be remembered as they are not shown again when the container is run.
+```commandline
+Jupyterhub:
+username: admin
+password: xxxxxxxx
+Apache Superset:
+username: admin
+password: xxxxxxxx
+Clickhouse:
+username: default
+password: xxxxxxxx
+```
+To run the new created container, the following command needs to be run
+```commandline
+docker run --cap-add=SYS_NICE --cap-add=NET_ADMIN --cap-add=IPC_LOCK -p 8000:8000 -p 8123:8123 -p 8088:8088 --gpus '"device=0,1"' -d -v /path/to/local/home:/home sinclair1992/data_science_toolkit_local
+```
+This maps port 8000 inside the docker container to port 8000 of the host machine for the Jupyterhub Server.
+The same goes with port 8088 for Apache Superset and port 8123 for clickhouse.
+The GPUs with the ids 0 and 1 get attached to the container. 
+In case more GPUs are available and needed the numbers can be adjusted accordingly.
+The parameter -d means that the container runs in detached mode and -v maps the volume /home
+inside the docker container to a local directory.
+The arguments --cap-add=SYS_NICE --cap-add=NET_ADMIN --cap-add=IPC_LOCK are needed in order to run the
+Clickhouse database according to this github discussion.
+To check if to container is running the following command might be used:
+
+## To just run the container
 To just run the container, clone this git repository and got to the directory "jupyterhub_gpu/jupyterhub_gpu_local/" by the following command:
 ```commandline
 git clone https://github.com/SinclairSchneider/DockerContainerForDataScience
