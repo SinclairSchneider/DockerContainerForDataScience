@@ -135,64 +135,10 @@ In case more GPUs are available and needed the numbers can be adjusted according
 The parameter -d means that the container runs in detached mode and -v maps the volume /home
 inside the docker container to a local directory.
 The arguments --cap-add=SYS_NICE --cap-add=NET_ADMIN --cap-add=IPC_LOCK are needed in order to run the
-Clickhouse database according to this github discussion.
-To check if to container is running the following command might be used:
-
-## To just run the container
-To just run the container, clone this git repository and got to the directory "jupyterhub_gpu/jupyterhub_gpu_local/" by the following command:
-```commandline
-git clone https://github.com/SinclairSchneider/DockerContainerForDataScience
-cd DockerContainerForDataScience/jupyterhub_gpu/jupyterhub_gpu_local/
-```
-At the first run the image needs to be initialized. Do this with the following command.
-```commandline
-docker image build -t sinclair1992/jupyterhub_gpu_local .
-```
-The response then might look as follows
-```commandline
-Sending build context to Docker daemon  2.048kB
-Step 1/3 : FROM sinclair1992/jupyterhub_gpu
-latest: Pulling from sinclair1992/jupyterhub_gpu
-xxxxxxxxxxxx: Already exists 
-xxxxxxxxxxxx: Already exists 
-xxxxxxxxxxxx: Already exists 
-xxxxxxxxxxxx: Already exists 
-xxxxxxxxxxxx: Already exists 
-xxxxxxxxxxxx: Already exists 
-xxxxxxxxxxxx: Already exists 
-xxxxxxxxxxxx: Already exists 
-xxxxxxxxxxxx: Already exists 
-xxxxxxxxxxxx: Already exists 
-xxxxxxxxxxxx: Pull complete 
-Digest: sha256:b3fda4eaf37348ca1e5cfd1a59c953a65e161076b0f0fadb3678639f7dc21fa9
-Status: Downloaded newer image for sinclair1992/jupyterhub_gpu:latest
- ---> xxxxxxxxxxxx
-Step 2/3 : RUN useradd -mg users -G sudo -s /bin/bash admin && pw=$(< /dev/urandom tr -dc _A-Z-a-z-0-9 | head -c8) && echo "admin:"$pw | chpasswd && echo "username: admin password: "$pw
- ---> Running in xxxxxxxxxxxx
-username: admin password: xxxXXxxx
-Removing intermediate container xxxxxxxxxxxx
- ---> xxxxxxxxxxxx
-Step 3/3 : CMD jupyterhub -f jupyterhub_config.py
- ---> Running in xxxxxxxxxxxx
-Removing intermediate container fed4ea0acaee
- ---> xxxxxxxxxxxx
-Successfully built xxxxxxxxxxxx
-```
-The important line from the output is the following one
-where the password for the user admin at local container is set. 
-This password should be remembered.
-```commandline
-username: admin password: xxxXXxxx
-```
-To run the new created container, the following command needs to be run
-```commandline
-docker run -p 8000:8000 --gpus '"device=0,1"' -d -v /path/to/local/home:/home sinclair1992/jupyterhub_gpu_local
-```
-This maps port 8000 inside the docker container to port 8000 of the host machine. 
-The GPUs with the ids 0 and 1 get attached to the container. 
-In case more GPUs are available and needed the numbers can be adjusted accordingly.
-The parameter -d means that the container runs in detached mode and -v maps the volume /home
-inside the docker container to a local directory.
+Clickhouse database according to [this](https://github.com/ClickHouse/ClickHouse/issues/13726) github discussion.
+Since the home directory is mounted locally, all user data of the admin are saved even after the docker container is removed.
+Clickhouse is configured in a way that all data are stored under "/home/data/clickhouse" which means that they are also 
+saved if the container is deleted.
 To check if to container is running the following command might be used:
 ```commandline
 docker container ls
