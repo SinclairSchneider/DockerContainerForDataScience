@@ -32,6 +32,14 @@ The image comes with the following properties:
 - npm
 - nodejs
 - sudo
+- vim
+- htop
+- net-tools
+- git
+- ipywidgets
+- pandahouse (python 3)
+- clickhouse-sqlalchemy (python 3)
+- clickhouse-driver
 
 ## To just run the container
 To just run the container, clone this git repository and got to the directory "jupyterhub_gpu/jupyterhub_gpu_local/" by the following command:
