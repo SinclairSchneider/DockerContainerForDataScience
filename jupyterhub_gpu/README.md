@@ -36,10 +36,10 @@ The image comes with the following properties:
 - htop
 - net-tools
 - git
-- ipywidgets
+- ipywidgets (python 3)
 - pandahouse (python 3)
 - clickhouse-sqlalchemy (python 3)
-- clickhouse-driver
+- clickhouse-driver (python 3)
 
 ## To just run the container
 To just run the container, clone this git repository and got to the directory "jupyterhub_gpu/jupyterhub_gpu_local/" by the following command:
