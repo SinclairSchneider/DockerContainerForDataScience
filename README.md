@@ -25,6 +25,14 @@ The included programs and libraries are:
 - npm
 - nodejs
 - sudo
+- vim
+- htop
+- net-tools
+- git
+- ipywidgets (python 3)
+- pandahouse (python 3)
+- clickhouse-sqlalchemy (python 3)
+- clickhouse-driver (python 3)
 
 ![](https://raw.githubusercontent.com/SinclairSchneider/DockerContainerForDataScience/main/jupyterhub_gpu/img/Login_Jupyterhub.jpg)
 ## Jupyterhub(CUDA) + Apache Superset + Clickhouse Docker image
@@ -56,13 +64,20 @@ The following programs and libraries are included (the bold ones are new compare
 - npm
 - nodejs
 - sudo
+- vim
+- htop
+- net-tools
+- git
+- ipywidgets (python 3)
+- pandahouse (python 3)
+- clickhouse-sqlalchemy (python 3)
+- clickhouse-driver (python 3)
 - **apt-utils**
 - **apt-transport-https**
 - **ca-certificates**
 - **dirmngr**
 - **clickhouse-server**
 - **clickhouse-client**
-- **git**
 - **build-essential**
 - **libssl-dev**
 - **libffi-dev**
