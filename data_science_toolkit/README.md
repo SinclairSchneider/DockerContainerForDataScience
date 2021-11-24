@@ -1,9 +1,10 @@
 # Jupyterhub(CUDA) + Apache Superset + Clickhouse Docker image
 
 The following Dockerfiles are based on the Docker image [jupyterhub_gpu](https://github.com/SinclairSchneider/DockerContainerForDataScience/tree/main/jupyterhub_gpu)
-and extend these image by the business intelligence application [Apache Superset](https://superset.apache.org/) and the database [Clickhouse](https://clickhouse.com/).
-The Jupyterhub server instance is on port 8000, Apache uperset uses port 8088
-and the database Clickhouse is accessible through port 8123. 
+and extend these image by the business intelligence application [Apache Superset](https://superset.apache.org/), the database [Clickhouse](https://clickhouse.com/)
+and an SSH-Server.
+The Jupyterhub server instance is on port 8000, Apache Superset uses port 8088, the database Clickhouse is accessible through port 8123
+and the SSH-Server through port 2222. 
 These ports can be mapped to any convenient ports on the host machine. 
 Like with the image [jupyterhub_gpu](https://github.com/SinclairSchneider/DockerContainerForDataScience/tree/main/jupyterhub_gpu)
 this folder also contains two subfolders "data_science_toolkit" and "data_science_toolkit_local".
@@ -50,6 +51,7 @@ The image comes with the following properties (the bold ones are new compared to
 - **libldap2-dev**
 - **apache-superset (python 3)**
 - **Flask-WTF==0.14.3 (python 3)**
+- **ssh (Server)**
 
 ## To just run the container
 To just run the container, clone this git repository and got to the directory
@@ -126,7 +128,7 @@ password: xxxxxxxx
 ```
 To run the new created container, the following command needs to be run
 ```commandline
-docker run --cap-add=SYS_NICE --cap-add=NET_ADMIN --cap-add=IPC_LOCK -p 8000:8000 -p 8123:8123 -p 8088:8088 --gpus '"device=0,1"' -d -v /path/to/local/home:/home sinclair1992/data_science_toolkit_local
+docker run --cap-add=SYS_NICE --cap-add=NET_ADMIN --cap-add=IPC_LOCK -p 8000:8000 -p 8123:8123 -p 8088:8088 -p 2222:22 --gpus '"device=0,1"' -d -v /path/to/local/home:/home sinclair1992/data_science_toolkit_local
 ```
 This maps port 8000 inside the docker container to port 8000 of the host machine for the Jupyterhub Server.
 The same goes with port 8088 for Apache Superset and port 8123 for clickhouse.
